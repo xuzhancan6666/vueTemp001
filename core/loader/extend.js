@@ -1,5 +1,6 @@
 const path = require('path')
 const glob = require('glob')
+const { sep } = path
 /**
  *
  * @param {koa} app Koa的实例
@@ -33,7 +34,7 @@ module.exports = (app) => {
       // /app/extend/xxx/A.js' => xxx/A.js'
       name = name.substring(name.lastIndexOf(`${sep}extend`) + `${sep}extend`.length, name.length)
       // 把 xxx-xxx 改驼峰。a-a/aaa.js => aA.aaa.js
-      name = name.replace(/[_-][a-z]/ig, (s) => s.substring(1).toUpperCase())
+      name = name.replace(/[_-][a-z]/ig, (s) => s.substring(1).toUpperCase()).replace('.js', '')
 
       for(let key in app) {
          if(key === name) {

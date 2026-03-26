@@ -29,7 +29,7 @@ class loaderBaisic {
          // /app/loaderModule/xxx/A.js' => xxx/A.js'
          name = name.substring(name.lastIndexOf(`${sep}${name}`) + `${sep}${name}`.length, name.length)
          // 把 xxx-xxx 改驼峰。a-a/aaa.js => aA.aaa.js
-         name = name.replace(/[_-][a-z]/ig, (s) => s.substring(1).toUpperCase())
+         name = name.replace(/[_-][a-z]/ig, (s) => s.substring(1).toUpperCase()).replace('.js', '')
 
          let temploaderModule = loaderModule
          const names = name.split(sep);

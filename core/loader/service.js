@@ -32,7 +32,7 @@ module.exports = (app) => {
       // /app/service/xxx/A.js' => xxx/A.js'
       name = name.substring(name.lastIndexOf(`${sep}service`) + `${sep}service`.length, name.length)
       // 把 xxx-xxx 改驼峰。a-a/aaa.js => aA.aaa.js
-      name = name.replace(/[_-][a-z]/ig, (s) => s.substring(1).toUpperCase())
+      name = name.replace(/[_-][a-z]/ig, (s) => s.substring(1).toUpperCase()).replace('.js', '')
 
       let tempService = service
       const names = name.split(sep);

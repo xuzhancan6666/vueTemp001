@@ -4,14 +4,13 @@
  * /router 文件夹下 所有 js 加载到 KoaRouter下面
  */
 
-const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const KoaRouter = require('koa-router');
-
+const {sep} = path
 module.exports = (app) => {
    // 找路由文件
-   const filePath = path.resolve(app.businessPath, 'router')
+   const filePath = path.resolve(app.businessPath, `.${sep}router`)
 
    // 加载进 KoaRouter 中
    const router = new KoaRouter()

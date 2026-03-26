@@ -1,5 +1,6 @@
 const path = require('path')
 const glob = require('glob')
+const {sep} = path
 /**
  *
  * @param {koa} app Koa的实例
@@ -29,8 +30,9 @@ module.exports = (app) => {
       // 获取文件全路径
       let name = path.resolve(file)
       // 截取 controller 以下的 xxx/xxx.js
-      // /app/controller/xxx/A.js' => xxx/A.js'
-      name = name.substring(name.lastIndexOf(`${sep}controller`) + `${sep}controller`.length, name.length)
+      // xxx/xxx//app/controller/xxx/A.js' => xxx/A.js'
+      name = name.split(`controller${sep}`)[1].replace('.js', '')
+
       // 把 xxx-xxx 改驼峰。a-a/aaa.js => aA.aaa.js
       name = name.replace(/[_-][a-z]/ig, (s) => s.substring(1).toUpperCase())
 
@@ -41,11 +43,12 @@ module.exports = (app) => {
          // A/B/C/D.js
          // 3.A[B][C][D] => 4.A.B.C.D = reuqire(A/B/C/D.js)
          if(i === names.length - 1) {
-             const controllerModule = require(path.resolve(file))(app)
-             tempController[names[i]] = controllerModule()
+             const ControllerModule = require(path.resolve(file))(app)
+             tempController[names[i]] = new ControllerModule()
          } else {
             // 如果不是最后一位。
             // 1. A[B] = {} =>  2.A[B][C]
+            console.log('names[i]\n\n', names, names[i])
             if(!tempController[names[i]]) {
                tempController[names[i]] = {}
             }
@@ -53,7 +56,6 @@ module.exports = (app) => {
             tempController = tempController[names[i]]
          }
       }
-      console.log('tempController....', tempController)
    });
 
    app.controller = controller

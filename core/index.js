@@ -25,7 +25,7 @@ module.exports = {
          // 基础路径
          app.basicDir = process.cwd()
          // 业务路径。sep用于不同系统的转译 --> /
-         app.businessPath = path.resolve(options.basicDir, `${sep}app`)
+         app.businessPath = path.resolve(app.basicDir, `.${sep}app`)
          // 初始化当前环境
          app.env = env
 
@@ -47,8 +47,15 @@ module.exports = {
          extendLoader(app)
          console.log('[start]...extend loaded', app.extend)
 
+         try {
+            require(path.resolve(`${app.businessPath}${sep}middleware.js`))(app)
+            console.log('-- [start]...globel middleware loaded --')
+         } catch (error) {
+            console.log('[exception]: there is no globle middleware...', error)
+         }
+
          routeLoader(app)
-         console.log('[start]...router loaded', app.router)
+         console.log('[start]...route loader', app.route)
 
          // 添加一个简单的路由处理
          app.use(async (ctx) => {
