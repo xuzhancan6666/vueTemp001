@@ -1,5 +1,6 @@
 const path = require('path')
 const glob = require('glob')
+const {sep} = path
 /**
  *
  * @param {koa} app Koa的实例
@@ -29,20 +30,24 @@ module.exports = (app) => {
       // 获取文件全路径
       let name = path.resolve(file)
       // 截取 service 以下的 xxx/xxx.js
-      // /app/service/xxx/A.js' => xxx/A.js'
-      name = name.substring(name.lastIndexOf(`${sep}service`) + `${sep}service`.length, name.length)
+      // /app/service/xxx/A.js' => xxx/A.js
+      console.log('name1...', name)
+
+      name = name.split(`service${sep}`)[1].replace('.js', '')
       // 把 xxx-xxx 改驼峰。a-a/aaa.js => aA.aaa.js
-      name = name.replace(/[_-][a-z]/ig, (s) => s.substring(1).toUpperCase()).replace('.js', '')
+      name = name.replace(/[_-][a-z]/ig, (s) => s.substring(1).toUpperCase())
 
       let tempService = service
       const names = name.split(sep);
+            console.log('name2...', names)
+
       for(let i = 0; i < names.length; i++) {
          // 如果最后一位。就是文件名。
          // A/B/C/D.js
          // 3.A[B][C][D] => 4.A.B.C.D = reuqire(A/B/C/D.js)
          if(i === names.length - 1) {
              const serviceModule = require(path.resolve(file))(app)
-             tempService[names[i]] = serviceModule()
+             tempService[names[i]] = new serviceModule()
          } else {
             // 如果不是最后一位。
             // 1. A[B] = {} =>  2.A[B][C]

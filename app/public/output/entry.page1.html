@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>{{name}}</title>
+    <link href="/static/normalize.css" rel="stylesheet"></link>
+    <link href="/static/monkey.png" rel="icon" type="image/x-icon"></link>
+</head>
+<body>
+   <h1>Page1</h1>
+   <input id="env" value="{{name}}" style="display: none"></input>
+   <input id="option" value="{{options}}" style="display: none"></input>
+   <button onclick="handleClick()">send request</button>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+   try {
+      window.env = document.getElementById('env').value
+      window.options = document.getElementById('options').value
+      window.options = options
+      console.log(window.options)
+   } catch (error) {
+      console.log(error)
+   }
+   const handleClick = () => {
+      axios.get('/api/project/list').then(res => console.log(res))
+   }
+</script>
+</html>
