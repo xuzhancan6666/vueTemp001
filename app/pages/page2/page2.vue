@@ -1,14 +1,17 @@
 <template>
    <h1>page2</h1>
-   <input v-model="value">
-   <span>{{ value }}</span>
+   <input v-model="content">
+   <span>{{ content }}</span>
 </template>
 <script setup>
    import {ref} from 'vue'
-   const value = ref('page2')
-   console.log('page2....',  value)
+   import util from '$common/utils';
+
+   const content = ref('page2')
+   console.log('page2....',  content.value)
+   util()
 </script>
-<style lane="less" scoped>
+<style lang="less" scoped>
 h1 {
    color: red;
 }

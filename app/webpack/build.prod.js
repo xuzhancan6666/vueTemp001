@@ -1,9 +1,8 @@
 const webpack = require('webpack')
-const webpackBaseConfig = require('./config/webpack.base')
+// const webpackBaseConfig = require('./config/webpack.base')
+const webpackConfig = require('./config/webpack.prod.js')
 
-console.log('\nbuiding.......\n')
-
-webpack(webpackBaseConfig, (err, stats) => {
+webpack(webpackConfig, (err, stats) => {
    if(err) { console.log(err); return }
    process.stdout.write(`${stats.toString({
       colors: true, //在控制台输出色彩信息

@@ -7,7 +7,6 @@
 </head>
 <body style="margin: 0;">
    <div id="root"></div>
-   <h1>my fist Koa view</h1>
 </body>
 <script type="text/javascript">
    try {
