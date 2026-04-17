@@ -1,7 +1,7 @@
 module.exports = {
    name: '课程管理-dy',
    desc: '课程管理-dy',
-   homePage: '',
+   homePage: '/todo?project_key=douyin&menu_key=traffic',
    menu: [{
       key: 'traffic',
       name: '流量管理',

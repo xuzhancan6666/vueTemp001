@@ -6,6 +6,8 @@ const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
 // 思考：多页面。entry入口的重复性。htmlwebpaclPlugin 的重复性。
 // 抽离重复内容。利用glob + 规则匹配  => 输出 配置
@@ -115,6 +117,11 @@ module.exports = {
          __VUE_OPTIONS_API__: 'true', // 支持 vue 解析 optionsApi
          __VUE_PROD_DEVTOOLS__: 'false', // 禁用 Vue 调试工具
          __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false' // 禁用生产环境显示 "水合" 信息
+      }),
+      // 2. 负责 <template> 里的组件 (<el-button>, <el-form>...)
+      Components({
+         resolvers: [ElementPlusResolver()],
+         exclude: [/node_modules/],
       }),
       // 构造最终渲染的 模版 页面
       // 它的目标是根据指定的模板文件生成一个最终可用的模板文件（entry.page1.tpl），

@@ -27,7 +27,7 @@ export default (pageComponents, { routes, libs } = {}) => {
          app.use(lib)
       })
    }
-
+   console.log('routes....', routes)
    // 路由-vue
    const router = createRouter({
       history: createWebHashHistory(), // hash 模式

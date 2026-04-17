@@ -19,7 +19,7 @@ const webpackConfig = merge.smart(baseConfig, {
   output: {
     filename: 'js/[name]_[chunkhash:8].bundle.js',
     chunkFilename: 'js/[name]_[chunkhash:8].chunk.js',
-    path: path.join(process.cwd(), './app/public/dist/prod'),
+    path: path.join(process.cwd(), './app/public/dist/prod/'),
     publicPath: '/dist/prod/',
     crossOriginLoading: 'anonymous',
     clean: true // 自动清理输出目录
@@ -159,11 +159,12 @@ const webpackConfig = merge.smart(baseConfig, {
         },
         // 提取公共业务代码
         common: {
-          name: 'common',
-          minChunks: 2,
-          priority: 5,
+          test: /[\\/]common|widgets[\\/]/,
+          name: 'common', // 打包出来的 模块名
+          minChunks: 2, // 2处被引用
+          priority: 5, // 优先级
           chunks: 'all',
-          reuseExistingChunk: true
+          reuseExistingChunk: true // 复用已有的公共 chnunk
         }
       }
     },

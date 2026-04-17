@@ -1,7 +1,7 @@
 module.exports = {
    name: '课程管理-bilibili',
    desc: '课程管理-bilibili',
-   homePage: '',
+   homePage: '/todo?project_key=bilibili&menu_key=video',
    menu: [{
          key: 'video',
          name: '视频课程-bilibili',

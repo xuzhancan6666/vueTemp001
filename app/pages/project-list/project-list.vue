@@ -17,7 +17,7 @@
                   </div>
                   <template #footer>
                      <div class="card-footer">
-                        <el-link @click.prevent="projectGo(dsl?.model?.key, project.key)">进入系统</el-link>
+                        <el-link @click.prevent="projectGo(project)">进入系统</el-link>
                      </div>
                   </template>
                </el-card>
@@ -30,42 +30,32 @@
 import {ref, onMounted} from 'vue'
 import curl from '$common/curl'
 import HeaderContainer from '$widgets/header-container/header-container.vue'
-
+import useDslStore from '$store/dsl.js'
+const dslStore = useDslStore()
 const dslList = ref([]);
+const modelKey = ref('');
+const projectKey = ref('');
 
-const getdslList = async () => {
+const getDsl = async () => {
    try {
       const res = await curl({
-         url: '/api/project/list',
+         url: '/api/dsl',
          method: 'get',
       })
 
       dslList.value = res.data || [];
+      dslStore.setDsl(dslList.value)
    } catch (error) {
    }
 }
 
-const getdslProject = async (modelKey, projectKey) => {
-   try {
-      const res = await curl({
-         url: '/api/project/list/project',
-         method: 'post',
-         data: {
-            modelKey,
-            projectKey
-         }
-      })
-   } catch (error) {
-      console.log('获取项目列表失败：', error);
-   }
-}
-
-const projectGo = async (modelKey, projectKey) => {
-   getdslProject(modelKey, projectKey)
+const projectGo = async (project) => {
+   const { origin}  = window.location
+   window.open(`${origin}/view/dashboard#${project.homePage}`)
 }
 
 onMounted(() => {
-   getdslList();
+   getDsl();
 })
 
 </script>

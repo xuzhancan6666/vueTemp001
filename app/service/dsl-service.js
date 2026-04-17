@@ -3,17 +3,36 @@ module.exports = (app) => {
    const modelList = require('../../model/index.js')(app)
 
    return class DslService extends BaseService {
-      getDsl(ctx) {
+      getDsl() {
          return modelList
       }
 
-      getDslProject(ctx) {
-         const data = ctx.request.body;
-         const { modelkey, projectKey } = data
-         const res = modelList.find((m, idx) => m.key === modelkey)
-         const project = res.project || {}
+      getDslProjectList(projectKey) {
+         const res = modelList.reduce((c, p) => {
+            const project = p.project || {}
 
-         return  project[projectKey] || {}
+            if(Object.keys(project).includes(projectKey)) {
+               const project = p.project || {}
+               c = c.concat(Object.keys(project).map(key => project[key]))
+            }
+
+            return c
+         }, [])
+         console.log('ress.......', res)
+         return res || []
+      }
+
+      getDslProject (projectKey) {
+         const res = modelList.reduce((c, p) => {
+            const project = p.project || {}
+            if(Object.keys(project).includes(projectKey)) {
+               c = project[projectKey]
+            }
+
+            return c
+         }, {})
+
+         return res || {}
       }
    }
 }
