@@ -30,7 +30,6 @@ const useMenuStore = defineStore('menu-store', () => {
          }
 
          if(moduleType === 'sider' && menu?.siderConfig && menu?.siderConfig?.menu) {
-            console.log(9999)
             const mItem = findMenuItem({key, value}, menu.siderConfig.menu);
             if(mItem) { return mItem }
          }

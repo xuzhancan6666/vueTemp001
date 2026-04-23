@@ -1,13 +1,13 @@
 <template>
    <el-config-provider :locale="zhCn">
-      <HeaderView
+      <header-view
          :project-name="projectName"
          @menu-select="menuSelect"
       >
          <template #main-content>
             <router-view></router-view>
          </template>
-      </HeaderView>
+      </header-view>
    </el-config-provider>
 </template>
 <script setup>

@@ -51,7 +51,7 @@ const menuAlready = computed(() => {
 // 页面已 mounted。 请求才返回。所以我们监听 menuList 变化. 再进行初始化
 watch(() => menuStore.menuList, () => {
    init()
-})
+}, { deep: true })
 
 // 初始化 menu
 onMounted(() => {
@@ -75,12 +75,25 @@ function init() {
 
    if(!menuAlready.value) return
    // 此时 menu 已存在。
+   // 1. url 有 sider_menu_key
    if(sider_menu_key.value) {
+      const menuItem = getRealMenuByKey(sider_menu_key.value)
+      // sider_menu_key 错误 --> 兜底
+      if(!menuItem) {
+         redirectFirstMenuItem()
+         return
+      }
       onMenuSelect(sider_menu_key.value)
    } else {
-      const firstMenuItem = menuStore.findFirstMenuItem(menu.value)
-      onMenuSelect(firstMenuItem.key)
+      // 2. url 无 sider_menu_key --> 兜底
+      redirectFirstMenuItem()
    }
+}
+
+// 这个作为兜底 menu 选项。都选用第一个 menu
+function redirectFirstMenuItem () {
+   const firstMenuItem = menuStore.findFirstMenuItem(menu.value)
+   onMenuSelect(firstMenuItem.key)
 }
 
 // 初始化 menu

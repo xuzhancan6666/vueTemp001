@@ -1,5 +1,5 @@
 <template>
-   <HeaderContianer :title="projectName">
+   <header-container :title="projectName">
       <template #header-menu-content>
          <!--这里是 menuStore 解构出来 -->
          <el-menu
@@ -46,11 +46,11 @@
       <template #main-content>
          <slot name="main-content"></slot>
       </template>
-   </HeaderContianer>
+   </header-container>
 </template>
 <script setup>
 import { computed, ref, onMounted, watch } from 'vue'
-import HeaderContianer from '$widgets/header-container/header-container.vue'
+import HeaderContainer from '$widgets/header-container/header-container.vue'
 import useMenuStore from '$store/menu.js'
 import useProjectStore from '$store/project.js'
 import SubMenu from './complex-view/sub-menu/sub-menu.vue';

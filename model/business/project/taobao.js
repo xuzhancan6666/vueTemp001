@@ -28,7 +28,7 @@ module.exports = {
          menuType: 'module',
          moduleType: 'iframe',
          iframeConfig: {
-            path: 'http://www.baidu.com'
+            path: 'https://www.qianwen.com/'
          }
       }]
    }, {
@@ -45,9 +45,10 @@ module.exports = {
                key: 'redbook',
                name: '小红书',
                menuType: 'module',
-               moduleType: 'custom',
-               customConfig: {
-                  path: '/todo'
+               moduleType: 'schema',
+               schemaConfig: {
+                  api: '/api/client',
+                  schema: {}
                }
             }, {
                key: 'douyin',
@@ -60,7 +61,7 @@ module.exports = {
                menuType: 'module',
                moduleType: 'iframe',
                iframeConfig: {
-                  path: 'http://www.baidu.com'
+                  path: 'https://www.qianwen.com/'
                }
             }]
       }, {
