@@ -22,6 +22,10 @@ module.exports = {
          name: '双11',
          menuType: 'module',
          moduleType: 'schema',
+         schemaConfig: {
+            api: '/api/redbook/client',
+            schema: {}
+         }
       }, {
          key: 'festival',
          name: '节日活动',
@@ -47,14 +51,63 @@ module.exports = {
                menuType: 'module',
                moduleType: 'schema',
                schemaConfig: {
-                  api: '/api/client',
-                  schema: {}
-               }
+                  api: '/api/redbook/client',
+                  schema: {
+                     type: 'objcet',
+                     properties: {
+                        name: {
+                           type: 'string',
+                           label: '账号名称',
+                           tableOptions: {}
+                        },
+                        id: {
+                           type: 'string',
+                           label: '账号ID',
+                           tableOptions: {}
+                        },
+                        fansNum: {
+                           type: 'number',
+                           label: '粉丝数量',
+                           tableOptions: {}
+                        },
+                        money: {
+                           type: 'number',
+                           label: '投流金额',
+                           tableOptions: {}
+                        }
+                     },
+                  },
+                  tableConfig: {
+                     headerButtons: [{
+                        label: '新增商品',
+                        eventKey: 'showComponent',
+                        type: 'primary'
+                     }],
+                     rowButtons: [{
+                        label: '修改',
+                        eventKey: 'showComponent',
+                        type: 'warning'
+                     }, {
+                        label: '删除',
+                        eventKey: 'remove',
+                        type: 'danger',
+                        eventOptions: {
+                           params: {
+                              id: 'schema::id'
+                           }
+                        }
+                     }]
+                  },
+               },
             }, {
                key: 'douyin',
                name: '抖音',
                menuType: 'module',
                moduleType: 'schema',
+               schemaConfig: {
+                  api: '/api/redbook/client',
+                  schema: {}
+               }
             }, {
                key: 'bilibili',
                name: 'bilibili',
